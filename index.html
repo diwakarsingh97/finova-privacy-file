@@ -1,0 +1,3469 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050b14">
+<meta name="description" content="FINOVA — Smart finance. Better decisions.">
+<title>FINOVA — Smart Finance</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#050b14;
+  --bg2:#08111e;
+  --panel:rgba(11,23,38,.72);
+  --panel2:rgba(15,30,49,.82);
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(53,221,255,.22);
+  --text:#f5f9ff;
+  --muted:#8d9bad;
+  --cyan:#35ddff;
+  --blue:#647cff;
+  --purple:#a56cff;
+  --green:#50e6a2;
+  --orange:#ffad68;
+  --danger:#ff6680;
+  --shadow:0 30px 100px rgba(0,0,0,.42);
+  --radius:26px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+    radial-gradient(circle at 20% 0%,rgba(53,221,255,.07),transparent 30%),
+    radial-gradient(circle at 80% 20%,rgba(165,108,255,.07),transparent 28%),
+    var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+
+body.privacy-open{
+  overflow-x:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+::selection{
+  background:rgba(53,221,255,.25);
+}
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:#050b14;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(var(--cyan),var(--purple));
+  border-radius:20px;
+}
+
+/* BACKGROUND */
+.bg-grid{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.35;
+  z-index:-3;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+
+.glow{
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  filter:blur(100px);
+  pointer-events:none;
+  z-index:-2;
+  opacity:.14;
+}
+
+.glow.one{
+  background:var(--cyan);
+  top:-180px;
+  left:-120px;
+}
+
+.glow.two{
+  background:var(--purple);
+  right:-180px;
+  top:35%;
+}
+
+.glow.three{
+  background:var(--blue);
+  left:25%;
+  bottom:-250px;
+}
+
+/* LOADER */
+#loader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#030811;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.7s ease;
+}
+
+#loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-inner{
+  text-align:center;
+}
+
+.loader-logo{
+  width:75px;
+  height:75px;
+  margin:auto;
+  border-radius:24px;
+  display:grid;
+  place-items:center;
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:30px;
+  color:#06101c;
+  background:linear-gradient(135deg,var(--cyan),#8af0ff);
+  box-shadow:0 0 50px rgba(53,221,255,.3);
+  animation:loaderPulse 1.5s infinite;
+}
+
+.loader-title{
+  font-family:"Space Grotesk";
+  font-size:20px;
+  letter-spacing:5px;
+  margin-top:22px;
+}
+
+.loader-sub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:7px;
+}
+
+.loader-bar{
+  width:220px;
+  height:3px;
+  margin:22px auto 0;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  border-radius:10px;
+}
+
+.loader-progress{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  animation:load 1.7s ease forwards;
+}
+
+@keyframes load{
+  to{width:100%}
+}
+
+@keyframes loaderPulse{
+  50%{transform:scale(1.07);box-shadow:0 0 75px rgba(53,221,255,.45)}
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5%;
+  background:rgba(5,11,20,.65);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-family:"Space Grotesk";
+  font-weight:700;
+  letter-spacing:1.5px;
+}
+
+.logo-mark{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  color:#06101b;
+  background:linear-gradient(135deg,var(--cyan),#91f2ff);
+  box-shadow:0 0 25px rgba(53,221,255,.2);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+.nav-links a{
+  color:#aab6c6;
+  font-size:13px;
+  transition:.25s;
+}
+
+.nav-links a:hover{
+  color:white;
+}
+
+.nav-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.nav-btn{
+  border:1px solid var(--line2);
+  background:rgba(53,221,255,.06);
+  color:var(--cyan);
+  padding:10px 16px;
+  border-radius:12px;
+  font-size:13px;
+}
+
+.menu-btn{
+  display:none;
+  background:none;
+  border:0;
+  color:white;
+  font-size:25px;
+}
+
+/* PAGE SYSTEM */
+.page{
+  display:none;
+  min-height:100vh;
+}
+
+.page.active{
+  display:block;
+}
+
+/* GENERAL */
+.container{
+  width:min(1180px,90%);
+  margin:auto;
+}
+
+section{
+  padding:110px 0;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border:1px solid rgba(53,221,255,.18);
+  background:rgba(53,221,255,.05);
+  border-radius:100px;
+  color:var(--cyan);
+  font-size:11px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+}
+
+.eyebrow span{
+  width:6px;
+  height:6px;
+  background:var(--cyan);
+  border-radius:50%;
+  box-shadow:0 0 12px var(--cyan);
+}
+
+.section-title{
+  font-family:"Space Grotesk";
+  font-size:clamp(35px,5vw,65px);
+  line-height:1;
+  letter-spacing:-2.5px;
+  margin-top:18px;
+}
+
+.section-title span{
+  color:var(--cyan);
+}
+
+.section-copy{
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:20px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:14px 19px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  transition:.3s;
+  font-size:13px;
+  font-weight:600;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.btn-primary{
+  color:#03101b;
+  background:linear-gradient(135deg,var(--cyan),#8af0ff);
+  box-shadow:0 10px 35px rgba(53,221,255,.14);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.035);
+  color:white;
+}
+
+.btn-secondary:hover{
+  border-color:var(--line2);
+  background:rgba(53,221,255,.05);
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  padding-top:150px;
+  display:flex;
+  align-items:center;
+  position:relative;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.hero h1{
+  font-family:"Space Grotesk";
+  font-size:clamp(54px,7vw,91px);
+  line-height:.92;
+  letter-spacing:-5px;
+  margin-top:22px;
+}
+
+.hero h1 .gradient{
+  background:linear-gradient(90deg,var(--cyan),#8ea0ff,var(--purple));
+  -webkit-background-clip:text;
+  color:transparent;
+  background-size:200%;
+  animation:gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove{
+  50%{background-position:100% 50%}
+}
+
+.hero-copy{
+  color:var(--muted);
+  max-width:570px;
+  font-size:17px;
+  line-height:1.75;
+  margin-top:28px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:32px;
+}
+
+.hero-note{
+  color:#687587;
+  font-size:10px;
+  letter-spacing:2px;
+  margin-top:24px;
+}
+
+/* DASHBOARD */
+.dashboard-wrap{
+  position:relative;
+  min-height:520px;
+  display:grid;
+  place-items:center;
+  perspective:1200px;
+}
+
+.orbit{
+  position:absolute;
+  border:1px solid rgba(53,221,255,.11);
+  border-radius:50%;
+  animation:spin 16s linear infinite;
+}
+
+.orbit.one{
+  width:470px;
+  height:470px;
+}
+
+.orbit.two{
+  width:370px;
+  height:370px;
+  animation-duration:11s;
+  animation-direction:reverse;
+  border-color:rgba(165,108,255,.13);
+}
+
+.orbit::after{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 20px var(--cyan);
+  top:50%;
+  left:-4px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.phone{
+  position:relative;
+  width:300px;
+  height:520px;
+  border-radius:40px;
+  padding:11px;
+  background:linear-gradient(145deg,#26394d,#08111d);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 40px 90px rgba(0,0,0,.5),0 0 70px rgba(53,221,255,.08);
+  transform:rotateY(-9deg) rotateX(4deg);
+  transition:.2s;
+  z-index:3;
+}
+
+.phone-screen{
+  height:100%;
+  border-radius:31px;
+  background:
+    radial-gradient(circle at 70% 5%,rgba(53,221,255,.12),transparent 35%),
+    #07111e;
+  overflow:hidden;
+  padding:22px;
+}
+
+.phone-top{
+  display:flex;
+  justify-content:space-between;
+  color:#718094;
+  font-size:9px;
+}
+
+.phone-title{
+  margin-top:25px;
+  font-family:"Space Grotesk";
+  font-size:14px;
+}
+
+.balance{
+  font-family:"Space Grotesk";
+  font-size:31px;
+  margin-top:8px;
+}
+
+.balance small{
+  color:var(--green);
+  font-size:10px;
+  margin-left:5px;
+}
+
+.chart{
+  height:100px;
+  margin-top:22px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  position:relative;
+  overflow:hidden;
+}
+
+.chart svg{
+  width:100%;
+  height:100%;
+}
+
+.mini-list{
+  margin-top:18px;
+  display:grid;
+  gap:9px;
+}
+
+.mini-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px;
+  border-radius:13px;
+  background:rgba(255,255,255,.035);
+  font-size:10px;
+}
+
+.mini-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.mini-icon{
+  width:25px;
+  height:25px;
+  border-radius:8px;
+  background:rgba(53,221,255,.1);
+  color:var(--cyan);
+  display:grid;
+  place-items:center;
+}
+
+.float-card{
+  position:absolute;
+  z-index:5;
+  padding:14px 17px;
+  border-radius:17px;
+  background:rgba(9,21,35,.88);
+  border:1px solid var(--line);
+  backdrop-filter:blur(15px);
+  box-shadow:var(--shadow);
+  font-size:11px;
+  animation:float 4s ease-in-out infinite;
+}
+
+.float-card strong{
+  display:block;
+  font-family:"Space Grotesk";
+  font-size:18px;
+  margin-top:5px;
+}
+
+.float-card.one{
+  left:0;
+  top:100px;
+}
+
+.float-card.two{
+  right:-10px;
+  bottom:105px;
+  animation-delay:1s;
+}
+
+.float-card.three{
+  left:45px;
+  bottom:30px;
+  animation-delay:2s;
+}
+
+@keyframes float{
+  50%{transform:translateY(-12px)}
+}
+
+/* MARQUEE */
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  white-space:nowrap;
+  padding:18px 0;
+  color:#657386;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.marquee-track{
+  display:inline-block;
+  animation:marquee 25s linear infinite;
+}
+
+.marquee span{
+  margin:0 35px;
+}
+
+@keyframes marquee{
+  to{transform:translateX(-50%)}
+}
+
+/* PORTFOLIO */
+.portfolio{
+  padding-top:40px;
+}
+
+.portfolio-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at 0% 0%,rgba(53,221,255,.09),transparent 32%),
+    rgba(9,19,32,.72);
+  border-radius:32px;
+  padding:45px;
+  display:grid;
+  grid-template-columns:270px 1fr;
+  gap:50px;
+  align-items:center;
+  box-shadow:var(--shadow);
+}
+
+.profile-area{
+  text-align:center;
+}
+
+.profile-ring{
+  width:190px;
+  height:190px;
+  margin:auto;
+  padding:5px;
+  border-radius:50%;
+  position:relative;
+  background:conic-gradient(var(--cyan),var(--purple),var(--blue),var(--cyan));
+  animation:profileSpin 8s linear infinite;
+}
+
+.profile-ring::before{
+  content:"";
+  position:absolute;
+  inset:-12px;
+  border:1px solid rgba(53,221,255,.12);
+  border-radius:50%;
+  animation:profileSpin 10s linear infinite reverse;
+}
+
+@keyframes profileSpin{
+  to{transform:rotate(360deg)}
+}
+
+.profile-image{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  background:#0b1726;
+  border:5px solid #08111d;
+}
+
+.profile-status{
+  position:absolute;
+  right:9px;
+  bottom:10px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--green);
+  border:4px solid #08111d;
+  box-shadow:0 0 18px rgba(80,230,162,.7);
+}
+
+.profile-tag{
+  display:inline-block;
+  margin-top:23px;
+  padding:7px 11px;
+  border-radius:100px;
+  color:var(--green);
+  background:rgba(80,230,162,.07);
+  border:1px solid rgba(80,230,162,.15);
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.portfolio-content h2{
+  font-family:"Space Grotesk";
+  font-size:clamp(30px,4vw,50px);
+  letter-spacing:-2px;
+}
+
+.portfolio-content h2 span{
+  color:var(--cyan);
+}
+
+.portfolio-role{
+  margin-top:8px;
+  color:#bdc8d6;
+  font-size:15px;
+}
+
+.portfolio-content p{
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:18px;
+  max-width:680px;
+}
+
+.portfolio-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:25px;
+}
+
+/* FEATURES */
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:55px;
+}
+
+.feature{
+  position:relative;
+  min-height:210px;
+  padding:25px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  border-radius:22px;
+  overflow:hidden;
+  transition:.35s;
+}
+
+.feature:hover{
+  transform:translateY(-7px);
+  border-color:rgba(53,221,255,.25);
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.feature::before{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  right:-50px;
+  top:-50px;
+  background:var(--cyan);
+  opacity:.08;
+  filter:blur(30px);
+  border-radius:50%;
+}
+
+.feature-icon{
+  width:45px;
+  height:45px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:rgba(53,221,255,.07);
+  color:var(--cyan);
+  font-size:20px;
+  margin-bottom:22px;
+}
+
+.feature h3{
+  font-family:"Space Grotesk";
+  font-size:17px;
+}
+
+.feature p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  margin-top:10px;
+}
+
+/* COMMAND CENTER */
+.command{
+  background:
+    radial-gradient(circle at 50% 30%,rgba(53,221,255,.05),transparent 45%);
+}
+
+.command-card{
+  margin-top:55px;
+  border:1px solid var(--line);
+  background:rgba(7,17,29,.75);
+  border-radius:30px;
+  padding:25px;
+  box-shadow:var(--shadow);
+}
+
+.command-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+
+.command-top h3{
+  font-family:"Space Grotesk";
+}
+
+.command-status{
+  font-size:10px;
+  color:var(--green);
+}
+
+.command-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  gap:15px;
+  margin-top:20px;
+}
+
+.stat-box{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  border-radius:20px;
+  padding:22px;
+}
+
+.stat-label{
+  color:#778496;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.stat-value{
+  font-family:"Space Grotesk";
+  font-size:28px;
+  margin-top:9px;
+}
+
+.progress{
+  height:6px;
+  border-radius:10px;
+  background:rgba(255,255,255,.06);
+  margin-top:17px;
+  overflow:hidden;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+}
+
+.bar-chart{
+  height:150px;
+  margin-top:20px;
+  display:flex;
+  align-items:end;
+  gap:9px;
+}
+
+.bar{
+  flex:1;
+  border-radius:8px 8px 2px 2px;
+  background:linear-gradient(to top,var(--blue),var(--cyan));
+  opacity:.75;
+  animation:bars 2s ease-in-out infinite alternate;
+}
+
+.bar:nth-child(1){height:35%}
+.bar:nth-child(2){height:55%;animation-delay:.1s}
+.bar:nth-child(3){height:45%;animation-delay:.2s}
+.bar:nth-child(4){height:75%;animation-delay:.3s}
+.bar:nth-child(5){height:60%;animation-delay:.4s}
+.bar:nth-child(6){height:90%;animation-delay:.5s}
+.bar:nth-child(7){height:68%;animation-delay:.6s}
+
+@keyframes bars{
+  to{transform:scaleY(.86)}
+}
+
+/* JOURNEY */
+.journey-grid{
+  margin-top:55px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.journey-step{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:25px;
+  background:rgba(255,255,255,.025);
+}
+
+.journey-number{
+  font-family:"Space Grotesk";
+  font-size:45px;
+  color:rgba(53,221,255,.22);
+}
+
+.journey-step h3{
+  margin-top:15px;
+  font-family:"Space Grotesk";
+}
+
+.journey-step p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  margin-top:9px;
+}
+
+/* ASK FINOVA */
+.ask-section{
+  position:relative;
+}
+
+.ask-card{
+  max-width:850px;
+  margin:50px auto 0;
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(165,108,255,.09),transparent 35%),
+    rgba(8,18,30,.82);
+  box-shadow:var(--shadow);
+}
+
+.ai-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:5px 5px 18px;
+  border-bottom:1px solid var(--line);
+}
+
+.ai-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.ai-logo{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:#04101b;
+  font-weight:800;
+}
+
+.ai-brand strong{
+  font-family:"Space Grotesk";
+}
+
+.ai-brand small{
+  display:block;
+  color:var(--green);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.ai-clear{
+  background:none;
+  border:0;
+  color:#6f7c8d;
+  font-size:11px;
+}
+
+.ai-clear:hover{
+  color:white;
+}
+
+.chat-box{
+  height:400px;
+  overflow-y:auto;
+  padding:22px 5px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.chat-msg{
+  max-width:78%;
+  padding:14px 16px;
+  border-radius:18px;
+  font-size:13px;
+  line-height:1.65;
+  animation:messageIn .3s ease;
+}
+
+@keyframes messageIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+.chat-msg.ai{
+  align-self:flex-start;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--line);
+  border-bottom-left-radius:5px;
+}
+
+.chat-msg.user{
+  align-self:flex-end;
+  background:linear-gradient(135deg,rgba(53,221,255,.17),rgba(100,124,255,.14));
+  border:1px solid rgba(53,221,255,.15);
+  border-bottom-right-radius:5px;
+}
+
+.chat-msg .msg-label{
+  font-size:9px;
+  color:#738194;
+  letter-spacing:1px;
+  margin-bottom:5px;
+  text-transform:uppercase;
+}
+
+.chat-msg.ai .msg-label{
+  color:var(--cyan);
+}
+
+.chat-input-wrap{
+  border-top:1px solid var(--line);
+  padding-top:18px;
+}
+
+.suggestions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.suggestion{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  color:#8491a3;
+  border-radius:100px;
+  padding:7px 10px;
+  font-size:10px;
+  transition:.2s;
+}
+
+.suggestion:hover{
+  color:var(--cyan);
+  border-color:var(--line2);
+}
+
+.chat-form{
+  display:flex;
+  gap:9px;
+}
+
+.chat-form textarea{
+  resize:none;
+  flex:1;
+  height:53px;
+  border-radius:15px;
+  border:1px solid var(--line);
+  outline:none;
+  padding:15px;
+  background:rgba(0,0,0,.18);
+  color:white;
+}
+
+.chat-form textarea:focus{
+  border-color:rgba(53,221,255,.35);
+}
+
+.send-btn{
+  width:55px;
+  border:0;
+  border-radius:15px;
+  background:linear-gradient(135deg,var(--cyan),#7ddfff);
+  color:#03101b;
+  font-size:19px;
+  font-weight:bold;
+}
+
+.thinking{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.thinking i{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--cyan);
+  animation:thinking .9s infinite;
+}
+
+.thinking i:nth-child(2){animation-delay:.15s}
+.thinking i:nth-child(3){animation-delay:.3s}
+
+@keyframes thinking{
+  50%{transform:translateY(-5px);opacity:.4}
+}
+
+/* COMPANY */
+.company-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.company-panel{
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:rgba(255,255,255,.025);
+  padding:32px;
+}
+
+.company-points{
+  display:grid;
+  gap:15px;
+  margin-top:25px;
+}
+
+.company-point{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+
+.point-icon{
+  min-width:35px;
+  height:35px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  color:var(--cyan);
+  background:rgba(53,221,255,.07);
+}
+
+.company-point h4{
+  font-family:"Space Grotesk";
+  font-size:14px;
+}
+
+.company-point p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+  margin-top:4px;
+}
+
+/* STATS */
+.stats{
+  padding:70px 0;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.big-stat{
+  padding:35px 20px;
+  text-align:center;
+  border-right:1px solid var(--line);
+}
+
+.big-stat:last-child{
+  border-right:0;
+}
+
+.big-stat strong{
+  font-family:"Space Grotesk";
+  font-size:40px;
+}
+
+.big-stat span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+/* FAQ */
+.faq-list{
+  max-width:850px;
+  margin:50px auto 0;
+  display:grid;
+  gap:10px;
+}
+
+.faq{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  border-radius:17px;
+  overflow:hidden;
+}
+
+.faq button{
+  width:100%;
+  background:none;
+  color:white;
+  border:0;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  text-align:left;
+  font-family:"Space Grotesk";
+  font-size:14px;
+}
+
+.faq button span{
+  color:var(--cyan);
+  font-size:20px;
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:.35s ease;
+}
+
+.faq-answer p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.75;
+  padding:0 20px 20px;
+}
+
+.faq.open .faq-answer{
+  max-height:250px;
+}
+
+/* CTA */
+.cta{
+  padding:120px 0;
+}
+
+.cta-card{
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  border:1px solid rgba(53,221,255,.17);
+  border-radius:35px;
+  padding:75px 30px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(53,221,255,.13),transparent 45%),
+    rgba(8,18,31,.7);
+}
+
+.cta-card h2{
+  font-family:"Space Grotesk";
+  font-size:clamp(38px,6vw,70px);
+  letter-spacing:-3px;
+}
+
+.cta-card p{
+  max-width:580px;
+  margin:18px auto 28px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--line);
+  padding:35px 0;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.footer-copy{
+  color:#657286;
+  font-size:11px;
+}
+
+.footer-links{
+  display:flex;
+  gap:18px;
+  color:#798698;
+  font-size:11px;
+}
+
+.footer-links a:hover{
+  color:var(--cyan);
+}
+
+/* PRIVACY PAGE */
+.privacy-page{
+  padding-top:120px;
+  padding-bottom:80px;
+}
+
+.privacy-header{
+  text-align:center;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.privacy-header h1{
+  font-family:"Space Grotesk";
+  font-size:clamp(42px,7vw,75px);
+  letter-spacing:-3px;
+  margin-top:20px;
+}
+
+.privacy-header h1 span{
+  color:var(--cyan);
+}
+
+.privacy-header p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-top:18px;
+}
+
+.privacy-content{
+  max-width:850px;
+  margin:55px auto 0;
+  padding:40px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:rgba(255,255,255,.025);
+}
+
+.policy-section{
+  padding:0 0 28px;
+  margin-bottom:28px;
+  border-bottom:1px solid var(--line);
+}
+
+.policy-section:last-child{
+  border-bottom:0;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+
+.policy-section h2{
+  font-family:"Space Grotesk";
+  font-size:21px;
+  margin-bottom:12px;
+}
+
+.policy-section p,
+.policy-section li{
+  color:#9aa6b6;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.policy-section ul{
+  padding-left:20px;
+}
+
+.privacy-back{
+  text-align:center;
+  margin-top:35px;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(25px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* SCROLL */
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  width:0;
+  height:2px;
+  z-index:9999;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+}
+
+.top-btn{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:rgba(8,18,30,.85);
+  color:var(--cyan);
+  display:grid;
+  place-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:900;
+}
+
+.top-btn.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* MOBILE */
+@media(max-width:950px){
+  .nav-links{
+    position:absolute;
+    top:78px;
+    left:0;
+    right:0;
+    display:none;
+    padding:20px;
+    background:rgba(5,11,20,.96);
+    border-bottom:1px solid var(--line);
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .nav-links.open{
+    display:flex;
+  }
+
+  .nav-links a{
+    padding:12px;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .nav-actions{
+    display:none;
+  }
+
+  .hero-grid,
+  .company-grid{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard-wrap{
+    margin-top:30px;
+  }
+
+  .features-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .journey-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .command-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .portfolio-card{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .portfolio-content p{
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .portfolio-buttons{
+    justify-content:center;
+  }
+}
+
+@media(max-width:650px){
+  section{
+    padding:80px 0;
+  }
+
+  .hero{
+    padding-top:125px;
+  }
+
+  .hero h1{
+    letter-spacing:-3px;
+  }
+
+  .features-grid,
+  .journey-grid,
+  .command-grid,
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .big-stat{
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .big-stat:last-child{
+    border-bottom:0;
+  }
+
+  .portfolio-card{
+    padding:30px 20px;
+  }
+
+  .phone{
+    width:270px;
+    height:470px;
+  }
+
+  .orbit.one{
+    width:390px;
+    height:390px;
+  }
+
+  .orbit.two{
+    width:310px;
+    height:310px;
+  }
+
+  .float-card{
+    transform:scale(.8);
+  }
+
+  .float-card.one{
+    left:-18px;
+  }
+
+  .float-card.two{
+    right:-28px;
+  }
+
+  .chat-box{
+    height:380px;
+  }
+
+  .chat-msg{
+    max-width:90%;
+  }
+
+  .privacy-content{
+    padding:25px 20px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">F</div>
+    <div class="loader-title">FINOVA</div>
+    <div class="loader-sub">SMART FINANCE · BETTER DECISIONS</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-grid"></div>
+<div class="glow one"></div>
+<div class="glow two"></div>
+<div class="glow three"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ================= HOME PAGE ================= -->
+<div id="homePage" class="page active">
+
+<header class="nav">
+  <a href="#home" class="logo" onclick="goHome(event)">
+    <div class="logo-mark">F</div>
+    <span>FINOVA</span>
+  </a>
+
+  <nav class="nav-links" id="navLinks">
+    <a href="#features" onclick="closeMenu()">Features</a>
+    <a href="#experience" onclick="closeMenu()">Experience</a>
+    <a href="#community" onclick="closeMenu()">Community</a>
+    <a href="#ask" onclick="closeMenu()">Ask FINOVA</a>
+    <a href="#company" onclick="closeMenu()">Company</a>
+    <a href="#faq" onclick="closeMenu()">FAQ</a>
+    <a href="#privacy" onclick="openPrivacy(event);closeMenu()">Privacy</a>
+  </nav>
+
+  <div class="nav-actions">
+    <a href="#ask" class="nav-btn">Ask FINOVA →</a>
+  </div>
+
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+
+    <div class="hero-content reveal">
+      <div class="eyebrow">
+        <span></span>
+        SMART FINANCE · BETTER DECISIONS
+      </div>
+
+      <h1>
+        Your money.<br>
+        Made <span class="gradient">clearer.</span>
+      </h1>
+
+      <p class="hero-copy">
+        FINOVA is a modern financial experience designed to help you
+        understand your money, make smarter decisions and build better
+        financial habits.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#ask" class="btn btn-primary">Ask FINOVA ✦</a>
+        <a href="#community" class="btn btn-secondary">Explore FINOVA →</a>
+      </div>
+
+      <div class="hero-note">
+        TRACK · UNDERSTAND · PLAN · SAVE · GROW
+      </div>
+    </div>
+
+    <div class="dashboard-wrap reveal" id="dashboard3d">
+
+      <div class="orbit one"></div>
+      <div class="orbit two"></div>
+
+      <div class="float-card one">
+        Spending clarity
+        <strong>+24.8%</strong>
+        <span style="color:var(--green);font-size:9px;">better this month</span>
+      </div>
+
+      <div class="float-card two">
+        Savings goal
+        <strong>72%</strong>
+        <span style="color:var(--cyan);font-size:9px;">on track</span>
+      </div>
+
+      <div class="float-card three">
+        Monthly budget
+        <strong>₹18,420</strong>
+      </div>
+
+      <div class="phone" id="phone">
+        <div class="phone-screen">
+
+          <div class="phone-top">
+            <span>FINOVA</span>
+            <span>● 9:41</span>
+          </div>
+
+          <div class="phone-title">Good evening 👋</div>
+
+          <div class="balance">
+            ₹84,620
+            <small>+8.4%</small>
+          </div>
+
+          <div style="color:#758396;font-size:9px;margin-top:3px;">
+            total financial position
+          </div>
+
+          <div class="chart">
+            <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#35ddff"/>
+                  <stop offset="100%" stop-color="#a56cff"/>
+                </linearGradient>
+              </defs>
+              <path
+                d="M0 78 C25 75,35 64,55 70 C80 78,85 45,110 53 C130 59,145 30,165 40 C190 53,195 23,215 30 C238 39,252 12,270 24 C282 31,290 15,300 8"
+                fill="none"
+                stroke="url(#chartGrad)"
+                stroke-width="3"
+              />
+            </svg>
+          </div>
+
+          <div class="mini-list">
+            <div class="mini-item">
+              <div class="mini-left">
+                <div class="mini-icon">↗</div>
+                <span>Investments</span>
+              </div>
+              <strong>₹32,400</strong>
+            </div>
+
+            <div class="mini-item">
+              <div class="mini-left">
+                <div class="mini-icon">◎</div>
+                <span>Savings</span>
+              </div>
+              <strong>₹18,220</strong>
+            </div>
+
+            <div class="mini-item">
+              <div class="mini-left">
+                <div class="mini-icon">⌁</div>
+                <span>Monthly spend</span>
+              </div>
+              <strong>₹12,680</strong>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>SMART TRACKING</span>
+    <span>✦</span>
+    <span>BUDGET CONTROL</span>
+    <span>✦</span>
+    <span>SAVINGS GOALS</span>
+    <span>✦</span>
+    <span>FINANCIAL INSIGHTS</span>
+    <span>✦</span>
+    <span>SMART TRACKING</span>
+    <span>✦</span>
+    <span>BUDGET CONTROL</span>
+    <span>✦</span>
+    <span>SAVINGS GOALS</span>
+    <span>✦</span>
+    <span>FINANCIAL INSIGHTS</span>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio">
+  <div class="container">
+
+    <div class="portfolio-card reveal">
+
+      <div class="profile-area">
+
+        <div class="profile-ring">
+          <img
+            src="profile.jpg"
+            alt="Ayush Singh"
+            class="profile-image"
+            onerror="this.src='https://placehold.co/400x400/08111e/35ddff?text=AS'"
+          >
+          <div class="profile-status"></div>
+        </div>
+
+        <div class="profile-tag">● BUILDING FINOVA</div>
+
+      </div>
+
+      <div class="portfolio-content">
+
+        <div class="eyebrow">
+          <span></span>
+          FOUNDER PORTFOLIO
+        </div>
+
+        <h2>
+          Ayush <span>Singh.</span>
+        </h2>
+
+        <div class="portfolio-role">
+          Founder & Creator of FINOVA
+        </div>
+
+        <p>
+          Building FINOVA around one simple idea:
+          financial technology should make money easier to understand,
+          not more complicated. The goal is to create a clean,
+          intelligent and approachable financial experience for everyday users.
+        </p>
+
+        <div class="portfolio-buttons">
+          <a href="#experience" class="btn btn-primary">My Project →</a>
+          <a href="#ask" class="btn btn-secondary">Ask FINOVA ✦</a>
+          <a href="#company" class="btn btn-secondary">My Vision</a>
+          <a href="mailto:ayush5292singh@gmail.com" class="btn btn-secondary">Contact</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+
+    <div class="reveal">
+      <div class="eyebrow">
+        <span></span>
+        FEATURES
+      </div>
+
+      <h2 class="section-title">
+        Everything you need.<br>
+        <span>Nothing unnecessary.</span>
+      </h2>
+
+      <p class="section-copy">
+        FINOVA brings your everyday financial decisions into one
+        clean and intelligent experience.
+      </p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature reveal">
+        <div class="feature-icon">⌁</div>
+        <h3>Smart Tracking</h3>
+        <p>Understand where your money goes without complicated spreadsheets.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">◫</div>
+        <h3>Budget Control</h3>
+        <p>Create realistic spending limits and stay aware of your progress.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">◎</div>
+        <h3>Savings Goals</h3>
+        <p>Turn financial goals into visible milestones you can actually follow.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">◈</div>
+        <h3>Multiple Wallets</h3>
+        <p>Keep different accounts and financial pools organised in one place.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">↻</div>
+        <h3>Recurring Payments</h3>
+        <p>Keep subscriptions and recurring expenses visible before they surprise you.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">▣</div>
+        <h3>Receipt Scanner</h3>
+        <p>Build a clearer picture of your spending from everyday purchases.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">◒</div>
+        <h3>Analytics</h3>
+        <p>See patterns, trends and changes in your financial behaviour.</p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">✦</div>
+        <h3>Financial Insights</h3>
+        <p>Turn financial information into simple ideas you can understand.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="command" id="experience">
+  <div class="container">
+
+    <div class="reveal">
+      <div class="eyebrow">
+        <span></span>
+        FINANCIAL COMMAND CENTER
+      </div>
+
+      <h2 class="section-title">
+        See your money<br>
+        <span>at a glance.</span>
+      </h2>
+
+      <p class="section-copy">
+        A dashboard designed around clarity instead of information overload.
+      </p>
+    </div>
+
+    <div class="command-card reveal">
+
+      <div class="command-top">
+        <div>
+          <h3>Financial Overview</h3>
+          <div style="color:#6e7b8d;font-size:10px;margin-top:4px;">
+            October 2026
+          </div>
+        </div>
+
+        <div class="command-status">● HEALTHY FINANCIAL FLOW</div>
+      </div>
+
+      <div class="command-grid">
+
+        <div class="stat-box">
+          <div class="stat-label">Total Position</div>
+          <div class="stat-value">₹84,620</div>
+
+          <div class="progress">
+            <span style="width:76%"></span>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:8px;color:#6f7c8d;font-size:9px;">
+            <span>Progress</span>
+            <span>76%</span>
+          </div>
+
+          <div class="bar-chart">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-label">Monthly Savings</div>
+          <div class="stat-value">₹8,240</div>
+          <div style="color:var(--green);font-size:10px;margin-top:10px;">
+            ↑ 14.2% this month
+          </div>
+
+          <div style="margin-top:35px;color:#748194;font-size:10px;">
+            SAVINGS RATE
+          </div>
+
+          <div style="font-family:'Space Grotesk';font-size:24px;margin-top:5px;">
+            23.4%
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-label">Budget Remaining</div>
+          <div class="stat-value">₹6,820</div>
+          <div style="color:var(--cyan);font-size:10px;margin-top:10px;">
+            9 days remaining
+          </div>
+
+          <div class="progress" style="margin-top:35px;">
+            <span style="width:64%"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MONEY JOURNEY -->
+<section>
+  <div class="container">
+
+    <div class="reveal">
+      <div class="eyebrow">
+        <span></span>
+        MONEY JOURNEY
+      </div>
+
+      <h2 class="section-title">
+        From confusion<br>
+        <span>to confidence.</span>
+      </h2>
+    </div>
+
+    <div class="journey-grid">
+
+      <div class="journey-step reveal">
+        <div class="journey-number">01</div>
+        <h3>Track</h3>
+        <p>Know what is coming in and what is going out.</p>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-number">02</div>
+        <h3>Understand</h3>
+        <p>Discover the patterns behind your financial behaviour.</p>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-number">03</div>
+        <h3>Plan</h3>
+        <p>Set goals and build a financial direction that makes sense.</p>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-number">04</div>
+        <h3>Grow</h3>
+        <p>Make better decisions consistently over time.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="container">
+
+    <div class="company-grid">
+
+      <div class="reveal">
+        <div class="eyebrow">
+          <span></span>
+          COMMUNITY
+        </div>
+
+        <h2 class="section-title">
+          Finance is easier<br>
+          <span>together.</span>
+        </h2>
+
+        <p class="section-copy">
+          FINOVA is being built as a place where people can ask questions,
+          learn financial concepts and make better decisions without feeling
+          lost in financial jargon.
+        </p>
+
+        <div style="margin-top:28px;">
+          <a href="#ask" class="btn btn-primary">
+            Ask FINOVA →
+          </a>
+        </div>
+      </div>
+
+      <div class="company-panel reveal">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-family:'Space Grotesk';font-size:19px;">
+              FINOVA Community
+            </div>
+            <div style="color:#687587;font-size:10px;margin-top:4px;">
+              Learn · Ask · Understand
+            </div>
+          </div>
+
+          <div style="color:var(--green);font-size:10px;">
+            ● OPEN
+          </div>
+        </div>
+
+        <div class="company-points">
+
+          <div class="company-point">
+            <div class="point-icon">?</div>
+            <div>
+              <h4>Ask questions</h4>
+              <p>Don't understand a financial concept? Ask FINOVA directly.</p>
+            </div>
+          </div>
+
+          <div class="company-point">
+            <div class="point-icon">↗</div>
+            <div>
+              <h4>Learn practically</h4>
+              <p>Finance explained in a simple and approachable way.</p>
+            </div>
+          </div>
+
+          <div class="company-point">
+            <div class="point-icon">✦</div>
+            <div>
+              <h4>Think better</h4>
+              <p>Build financial awareness rather than simply collecting numbers.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ASK FINOVA -->
+<section class="ask-section" id="ask">
+  <div class="container">
+
+    <div class="reveal" style="text-align:center;">
+      <div class="eyebrow">
+        <span></span>
+        ASK FINOVA
+      </div>
+
+      <h2 class="section-title">
+        Ask anything.<br>
+        <span>Think financially.</span>
+      </h2>
+
+      <p class="section-copy" style="margin-left:auto;margin-right:auto;">
+        Ask FINOVA a finance question and get a simple,
+        practical explanation.
+      </p>
+    </div>
+
+    <div class="ask-card reveal">
+
+      <div class="ai-head">
+        <div class="ai-brand">
+          <div class="ai-logo">F</div>
+          <div>
+            <strong>FINOVA</strong>
+            <small>● THINKING ENGINE</small>
+          </div>
+        </div>
+
+        <button class="ai-clear" onclick="clearChat()">
+          Clear conversation
+        </button>
+      </div>
+
+      <div class="chat-box" id="chatBox"></div>
+
+      <div class="chat-input-wrap">
+
+        <div class="suggestions">
+          <button class="suggestion" onclick="askSuggestion('What is compound interest?')">
+            Compound interest
+          </button>
+
+          <button class="suggestion" onclick="askSuggestion('How should I make a budget?')">
+            Make a budget
+          </button>
+
+          <button class="suggestion" onclick="askSuggestion('What is an emergency fund?')">
+            Emergency fund
+          </button>
+
+          <button class="suggestion" onclick="askSuggestion('What is inflation?')">
+            Inflation
+          </button>
+        </div>
+
+        <form class="chat-form" onsubmit="sendQuestion(event)">
+          <textarea
+            id="questionInput"
+            placeholder="Ask FINOVA a financial question..."
+          ></textarea>
+
+          <button class="send-btn" type="submit">↑</button>
+        </form>
+
+        <div style="color:#596779;font-size:9px;margin-top:10px;text-align:center;">
+          FINOVA provides educational information, not personalised financial advice.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section id="company">
+  <div class="container company-grid">
+
+    <div class="reveal">
+      <div class="eyebrow">
+        <span></span>
+        WHY FINOVA EXISTS
+      </div>
+
+      <h2 class="section-title">
+        Finance shouldn't<br>
+        <span>feel intimidating.</span>
+      </h2>
+
+      <p class="section-copy">
+        Financial products have become more powerful, but understanding
+        money hasn't always become easier. FINOVA aims to close that gap
+        with a simple, modern and human-first experience.
+      </p>
+    </div>
+
+    <div class="company-panel reveal">
+
+      <div class="company-points">
+
+        <div class="company-point">
+          <div class="point-icon">01</div>
+          <div>
+            <h4>Clarity over complexity</h4>
+            <p>Information should help people think, not overwhelm them.</p>
+          </div>
+        </div>
+
+        <div class="company-point">
+          <div class="point-icon">02</div>
+          <div>
+            <h4>Education first</h4>
+            <p>Understanding financial concepts creates better long-term decisions.</p>
+          </div>
+        </div>
+
+        <div class="company-point">
+          <div class="point-icon">03</div>
+          <div>
+            <h4>Built for real life</h4>
+            <p>Finance is about everyday choices, goals and trade-offs.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+
+    <div class="stats-grid reveal">
+
+      <div class="big-stat">
+        <strong>01</strong>
+        <span>Simple philosophy</span>
+      </div>
+
+      <div class="big-stat">
+        <strong>24/7</strong>
+        <span>Financial thinking</span>
+      </div>
+
+      <div class="big-stat">
+        <strong>∞</strong>
+        <span>Learning possibilities</span>
+      </div>
+
+      <div class="big-stat">
+        <strong>1</strong>
+        <span>Clearer direction</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+
+    <div class="reveal" style="text-align:center;">
+      <div class="eyebrow">
+        <span></span>
+        FAQ
+      </div>
+
+      <h2 class="section-title">
+        Questions,<br>
+        <span>answered.</span>
+      </h2>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq reveal">
+        <button onclick="toggleFaq(this)">
+          What is FINOVA?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            FINOVA is a financial technology concept focused on making
+            financial information, tracking and learning simpler and more approachable.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq reveal">
+        <button onclick="toggleFaq(this)">
+          What is Ask FINOVA?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Ask FINOVA is an interactive finance question interface.
+            You can type a financial question and FINOVA's built-in
+            educational engine generates a simple explanation.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq reveal">
+        <button onclick="toggleFaq(this)">
+          Does FINOVA use real users?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            This website does not create fake community users or fake
+            community activity. The Ask FINOVA conversation is between
+            you and the FINOVA interface.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq reveal">
+        <button onclick="toggleFaq(this)">
+          Is Ask FINOVA a real online AI service?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            The current single-file version uses a local educational
+            finance-answer engine. A real cloud AI system would require
+            an API and secure server-side integration.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq reveal">
+        <button onclick="toggleFaq(this)">
+          Is FINOVA financial advice?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            No. FINOVA is intended for educational and informational use.
+            Important financial decisions should be made after considering
+            your individual circumstances and, where appropriate,
+            consulting a qualified professional.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+
+    <div class="cta-card reveal">
+
+      <div class="eyebrow">
+        <span></span>
+        THE NEXT STEP
+      </div>
+
+      <h2 style="margin-top:20px;">
+        Start thinking<br>
+        <span style="color:var(--cyan);">FINOVA.</span>
+      </h2>
+
+      <p>
+        Your financial journey doesn't need more complexity.
+        It needs more clarity.
+      </p>
+
+      <a href="#ask" class="btn btn-primary">
+        Ask FINOVA ✦
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+
+    <div class="footer-copy">
+      © 2026 FINOVA. Built for better financial thinking.
+    </div>
+
+    <div class="footer-links">
+      <a href="#home" onclick="goHome(event)">Home</a>
+      <a href="#company">About</a>
+      <a href="#ask">Ask FINOVA</a>
+      <a href="#privacy" onclick="openPrivacy(event)">Privacy Policy</a>
+      <a href="mailto:ayush5292singh@gmail.com">Contact</a>
+    </div>
+
+  </div>
+</footer>
+
+</div>
+<!-- END HOME PAGE -->
+
+
+<!-- ================= PRIVACY PAGE ================= -->
+<div id="privacyPage" class="page">
+
+<header class="nav">
+  <a href="#home" class="logo" onclick="goHome(event)">
+    <div class="logo-mark">F</div>
+    <span>FINOVA</span>
+  </a>
+
+  <div class="nav-actions" style="display:flex;">
+    <button class="nav-btn" onclick="goHome(event)">
+      ← Back to FINOVA
+    </button>
+  </div>
+
+  <button class="menu-btn" onclick="goHome(event)">×</button>
+</header>
+
+<main class="privacy-page">
+
+  <div class="container">
+
+    <div class="privacy-header reveal visible">
+
+      <div class="eyebrow">
+        <span></span>
+        FINOVA · PRIVACY
+      </div>
+
+      <h1>
+        Privacy <span>Policy.</span>
+      </h1>
+
+      <p>
+        Your privacy matters. This page explains how information
+        is handled when you use the FINOVA website and its interactive features.
+      </p>
+
+      <div style="color:#657286;font-size:10px;margin-top:15px;">
+        Effective date: 6 October 2026
+      </div>
+
+    </div>
+
+    <div class="privacy-content">
+
+      <div class="policy-section">
+        <h2>1. Introduction</h2>
+        <p>
+          FINOVA is a financial technology concept and educational platform.
+          This Privacy Policy explains the general approach to information
+          submitted through this website.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>2. Information You Provide</h2>
+        <p>
+          You may voluntarily enter information when interacting with
+          FINOVA, such as questions entered into the Ask FINOVA interface
+          or information included when contacting the founder by email.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>3. Ask FINOVA</h2>
+        <p>
+          Questions entered into Ask FINOVA are processed by the
+          website's current local educational answer engine.
+          The current single-file version does not send those questions
+          to a FINOVA backend server.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>4. Local Browser Storage</h2>
+        <p>
+          The website may use your browser's local storage to remember
+          your Ask FINOVA conversation on the same browser and device.
+          This information remains within your browser unless you clear
+          your browser storage.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>5. How Information Is Used</h2>
+        <ul>
+          <li>To provide the interactive website experience.</li>
+          <li>To remember local conversation state where enabled.</li>
+          <li>To respond to questions within Ask FINOVA.</li>
+          <li>To respond if you voluntarily contact the founder.</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2>6. Information You Should Not Submit</h2>
+        <p>
+          Do not enter passwords, bank account credentials, card numbers,
+          authentication codes, government identification numbers,
+          or other highly sensitive personal information into FINOVA's
+          public-facing interfaces.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>7. Email Contact</h2>
+        <p>
+          If you choose to contact FINOVA or its founder through the
+          displayed email address, your email provider will process
+          the email according to its own privacy policies.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>8. Third-Party Services</h2>
+        <p>
+          The website may use third-party resources such as web fonts.
+          Those services may process technical information according
+          to their own policies.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>9. Security</h2>
+        <p>
+          Reasonable care is taken in designing the website, but no
+          internet-based system can be guaranteed to be completely secure.
+          Avoid submitting sensitive financial or authentication information.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>10. Children's Privacy</h2>
+        <p>
+          FINOVA is not designed to collect personal information from children.
+          Users should avoid submitting personal or sensitive information
+          through public interfaces.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>11. Your Choices</h2>
+        <p>
+          You can clear the Ask FINOVA conversation using the
+          "Clear conversation" control. You can also clear the website's
+          stored data through your browser settings.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>12. Changes to This Policy</h2>
+        <p>
+          This Privacy Policy may be updated as FINOVA develops new
+          features or changes how information is handled. Updated versions
+          will be published on this page.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>13. Contact</h2>
+        <p>
+          For privacy-related questions, you can contact:
+        </p>
+
+        <a
+          href="mailto:ayush5292singh@gmail.com"
+          style="display:inline-block;margin-top:10px;color:var(--cyan);"
+        >
+          ayush5292singh@gmail.com
+        </a>
+      </div>
+
+    </div>
+
+    <div class="privacy-back">
+      <button class="btn btn-primary" onclick="goHome(event)">
+        ← Back to FINOVA
+      </button>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+
+    <div class="footer-copy">
+      © 2026 FINOVA. Built for better financial thinking.
+    </div>
+
+    <div class="footer-links">
+      <a href="#home" onclick="goHome(event)">FINOVA Home</a>
+      <a href="mailto:ayush5292singh@gmail.com">Contact</a>
+    </div>
+
+  </div>
+</footer>
+
+</div>
+<!-- END PRIVACY PAGE -->
+
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  ↑
+</button>
+
+<script>
+/* ================= LOADER ================= */
+window.addEventListener("load",function(){
+  setTimeout(function(){
+    document.getElementById("loader").classList.add("hide");
+  },1800);
+});
+
+
+/* ================= MOBILE NAV ================= */
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("open");
+}
+
+function closeMenu(){
+  document.getElementById("navLinks").classList.remove("open");
+}
+
+
+/* ================= PAGE SWITCHING ================= */
+/*
+  IMPORTANT:
+  Privacy Policy does NOT use complicated hash routing.
+  It simply switches between two sections inside the same HTML file.
+*/
+
+function openPrivacy(event){
+  if(event) event.preventDefault();
+
+  const homePage=document.getElementById("homePage");
+  const privacyPage=document.getElementById("privacyPage");
+
+  homePage.classList.remove("active");
+  privacyPage.classList.add("active");
+
+  document.body.classList.add("privacy-open");
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+
+  closeMenu();
+
+  /* Change URL without reloading the page */
+  try{
+    history.replaceState(null,"","#privacy");
+  }catch(e){}
+}
+
+function goHome(event){
+  if(event) event.preventDefault();
+
+  const homePage=document.getElementById("homePage");
+  const privacyPage=document.getElementById("privacyPage");
+
+  privacyPage.classList.remove("active");
+  homePage.classList.add("active");
+
+  document.body.classList.remove("privacy-open");
+
+  closeMenu();
+
+  try{
+    history.replaceState(null,"","#home");
+  }catch(e){}
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+}
+
+
+/* ================= HANDLE DIRECT #PRIVACY ================= */
+window.addEventListener("DOMContentLoaded",function(){
+
+  if(window.location.hash === "#privacy"){
+    openPrivacy();
+  }else{
+    document.getElementById("homePage").classList.add("active");
+    document.getElementById("privacyPage").classList.remove("active");
+  }
+
+  initChat();
+});
+
+
+/* ================= BROWSER BACK/FORWARD ================= */
+window.addEventListener("popstate",function(){
+
+  if(window.location.hash === "#privacy"){
+    openPrivacy();
+  }else{
+    goHome();
+  }
+
+});
+
+
+/* ================= SCROLL PROGRESS ================= */
+window.addEventListener("scroll",function(){
+
+  const scrollTop=window.scrollY;
+  const docHeight=document.documentElement.scrollHeight-window.innerHeight;
+
+  const progress=docHeight>0
+    ? (scrollTop/docHeight)*100
+    : 0;
+
+  document.getElementById("scrollProgress").style.width=progress+"%";
+
+  const topBtn=document.getElementById("topBtn");
+
+  if(scrollTop>500){
+    topBtn.classList.add("show");
+  }else{
+    topBtn.classList.remove("show");
+  }
+
+});
+
+
+/* ================= REVEAL ANIMATION ================= */
+const revealObserver=new IntersectionObserver(
+  function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  {
+    threshold:.12
+  }
+);
+
+document.querySelectorAll(".reveal").forEach(function(el){
+  revealObserver.observe(el);
+});
+
+
+/* ================= PHONE 3D EFFECT ================= */
+const dashboard=document.getElementById("dashboard3d");
+const phone=document.getElementById("phone");
+
+if(dashboard && phone){
+
+  dashboard.addEventListener("mousemove",function(e){
+
+    if(window.innerWidth<900) return;
+
+    const rect=dashboard.getBoundingClientRect();
+
+    const x=e.clientX-rect.left;
+    const y=e.clientY-rect.top;
+
+    const rotateY=(x/rect.width-.5)*12;
+    const rotateX=(y/rect.height-.5)*-10;
+
+    phone.style.transform=
+      "rotateY("+rotateY+"deg) rotateX("+rotateX+"deg)";
+
+  });
+
+  dashboard.addEventListener("mouseleave",function(){
+    phone.style.transform="rotateY(-9deg) rotateX(4deg)";
+  });
+
+}
+
+
+/* ================= FAQ ================= */
+function toggleFaq(button){
+
+  const current=button.parentElement;
+
+  document.querySelectorAll(".faq").forEach(function(item){
+
+    if(item!==current){
+      item.classList.remove("open");
+
+      const plus=item.querySelector("button span");
+
+      if(plus) plus.textContent="+";
+    }
+
+  });
+
+  current.classList.toggle("open");
+
+  const symbol=button.querySelector("span");
+
+  if(current.classList.contains("open")){
+    symbol.textContent="−";
+  }else{
+    symbol.textContent="+";
+  }
+
+}
+
+
+/* ================= FINOVA LOCAL THINKING ENGINE ================= */
+
+const defaultWelcome=
+`Hey 👋 I'm FINOVA.
+
+Ask me a finance question and I'll explain it in simple language.
+
+You can ask things like:
+• What is compound interest?
+• How should I make a budget?
+• What is inflation?
+• What is an emergency fund?
+• What is SIP?
+• What is diversification?`;
+
+function initChat(){
+
+  const chatBox=document.getElementById("chatBox");
+
+  if(!chatBox) return;
+
+  const saved=localStorage.getItem("finovaConversation");
+
+  if(saved){
+
+    try{
+
+      const messages=JSON.parse(saved);
+
+      messages.forEach(function(message){
+        addMessage(message.text,message.type,false);
+      });
+
+      return;
+
+    }catch(e){
+
+      localStorage.removeItem("finovaConversation");
+
+    }
+
+  }
+
+  addMessage(defaultWelcome,"ai",false);
+}
+
+
+function saveChat(){
+
+  const messages=[];
+
+  document.querySelectorAll("#chatBox .chat-msg").forEach(function(msg){
+
+    const type=msg.classList.contains("user") ? "user":"ai";
+
+    const clone=msg.cloneNode(true);
+
+    const label=clone.querySelector(".msg-label");
+
+    if(label) label.remove();
+
+    messages.push({
+      type:type,
+      text:clone.innerText.trim()
+    });
+
+  });
+
+  localStorage.setItem(
+    "finovaConversation",
+    JSON.stringify(messages)
+  );
+}
+
+
+function addMessage(text,type,save=true){
+
+  const chatBox=document.getElementById("chatBox");
+
+  if(!chatBox) return;
+
+  const message=document.createElement("div");
+
+  message.className="chat-msg "+type;
+
+  message.innerHTML=
+    '<div class="msg-label">'+
+      (type==="ai" ? "FINOVA":"YOU")+
+    '</div>'+
+    formatAnswer(text);
+
+  chatBox.appendChild(message);
+
+  chatBox.scrollTop=chatBox.scrollHeight;
+
+  if(save){
+    saveChat();
+  }
+
+}
+
+
+function formatAnswer(text){
+
+  return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/\n/g,"<br>");
+}
+
+
+function showThinking(){
+
+  const chatBox=document.getElementById("chatBox");
+
+  const thinking=document.createElement("div");
+
+  thinking.className="chat-msg ai";
+  thinking.id="thinkingMessage";
+
+  thinking.innerHTML=
+    '<div class="msg-label">FINOVA</div>'+
+    '<div class="thinking">'+
+      '<i></i><i></i><i></i>'+
+    '</div>';
+
+  chatBox.appendChild(thinking);
+
+  chatBox.scrollTop=chatBox.scrollHeight;
+
+}
+
+
+function removeThinking(){
+
+  const thinking=document.getElementById("thinkingMessage");
+
+  if(thinking){
+    thinking.remove();
+  }
+
+}
+
+
+function sendQuestion(event){
+
+  event.preventDefault();
+
+  const input=document.getElementById("questionInput");
+
+  const question=input.value.trim();
+
+  if(!question) return;
+
+  addMessage(question,"user",true);
+
+  input.value="";
+
+  showThinking();
+
+  setTimeout(function(){
+
+    removeThinking();
+
+    const answer=generateFinanceAnswer(question);
+
+    typeAnswer(answer);
+
+  },900);
+
+}
+
+
+function askSuggestion(question){
+
+  const input=document.getElementById("questionInput");
+
+  input.value=question;
+
+  input.focus();
+
+}
+
+
+function typeAnswer(answer){
+
+  const chatBox=document.getElementById("chatBox");
+
+  const message=document.createElement("div");
+
+  message.className="chat-msg ai";
+
+  message.innerHTML=
+    '<div class="msg-label">FINOVA</div>'+
+    '<span class="typing-text"></span>';
+
+  chatBox.appendChild(message);
+
+  const target=message.querySelector(".typing-text");
+
+  let index=0;
+
+  function type(){
+
+    if(index<answer.length){
+
+      target.innerHTML=formatAnswer(answer.substring(0,index+1));
+
+      index++;
+
+      chatBox.scrollTop=chatBox.scrollHeight;
+
+      setTimeout(type,8);
+
+    }else{
+
+      saveChat();
+
+    }
+
+  }
+
+  type();
+
+}
+
+
+function generateFinanceAnswer(question){
+
+  const q=question.toLowerCase();
+
+  /* COMPOUND INTEREST */
+  if(
+    q.includes("compound interest") ||
+    q.includes("compounding")
+  ){
+
+    return `Compound interest means you earn returns not only on your original money, but also on the returns you have already earned.
+
+Simple example:
+
+You invest ₹10,000 at 10% per year.
+
+After year 1 → ₹11,000
+After year 2 → ₹12,100
+After year 3 → ₹13,310
+
+The important idea is that your money starts earning money on previous earnings.
+
+That's why time is one of the biggest advantages an investor can have.`;
+
+  }
+
+
+  /* BUDGET */
+  if(
+    q.includes("budget") ||
+    q.includes("manage my money") ||
+    q.includes("manage money")
+  ){
+
+    return `A simple budget starts with four steps:
+
+1. Calculate your monthly income.
+2. List essential expenses.
+3. Decide how much you want to save or invest.
+4. Give yourself a limit for discretionary spending.
+
+A simple framework could be:
+
+Income → Needs → Savings/Investing → Wants
+
+The exact percentages don't have to be perfect. The important thing is that you know where your money is going before you spend it.`;
+
+  }
+
+
+  /* EMERGENCY FUND */
+  if(
+    q.includes("emergency fund") ||
+    q.includes("emergency savings")
+  ){
+
+    return `An emergency fund is money kept aside for unexpected expenses such as job loss, urgent repairs or medical costs.
+
+A common starting target is around 3–6 months of essential expenses.
+
+For example, if your essential monthly expenses are ₹20,000:
+
+3 months = ₹60,000
+6 months = ₹1,20,000
+
+The purpose isn't to maximise returns. The purpose is financial safety and liquidity.`;
+
+  }
+
+
+  /* INFLATION */
+  if(q.includes("inflation")){
+
+    return `Inflation means the general price level of goods and services increases over time.
+
+Imagine ₹1,000 can buy a particular basket of goods today.
+
+If prices rise by 6%, that same ₹1,000 will generally buy less in the future.
+
+That's why investors often think about returns in two ways:
+
+Nominal return = stated return
+
+Real return ≈ nominal return − inflation
+
+Inflation matters because your money needs to maintain purchasing power, not just increase in number.`;
+
+  }
+
+
+  /* SIP */
+  if(
+    q.includes("sip") ||
+    q.includes("systematic investment")
+  ){
+
+    return `SIP stands for Systematic Investment Plan.
+
+Instead of investing one large amount at once, you invest a fixed amount at regular intervals, commonly monthly.
+
+For example:
+
+₹5,000 every month → invested regularly
+
+The benefit is discipline and consistency. When prices are lower, your fixed investment buys more units; when prices are higher, it buys fewer.
+
+SIP does not guarantee profits and market-linked investments can fall in value.`;
+
+  }
+
+
+  /* DIVERSIFICATION */
+  if(
+    q.includes("diversification") ||
+    q.includes("diversify")
+  ){
+
+    return `Diversification means spreading investments across different assets or investments so that your entire portfolio does not depend on one thing.
+
+For example, instead of putting all your money into one company, an investor might diversify across different companies, sectors or asset classes.
+
+The basic idea is:
+
+Don't put all your financial risk in one basket.
+
+Diversification can reduce concentration risk, although it cannot eliminate investment losses.`;
+
+  }
+
+
+  /* STOCK */
+  if(
+    q.includes("stock") ||
+    q.includes("share") ||
+    q.includes("equity")
+  ){
+
+    return `A stock represents ownership in a company.
+
+If you own shares of a company, you own a small portion of that business.
+
+Potential sources of return include:
+
+• Increase in share price
+• Dividends, if the company pays them
+
+But stocks also carry risk. Their prices can move significantly because of company performance, economic conditions, interest rates, investor expectations and many other factors.`;
+
+  }
+
+
+  /* MUTUAL FUND */
+  if(
+    q.includes("mutual fund") ||
+    q.includes("mutual funds")
+  ){
+
+    return `A mutual fund pools money from many investors and invests that money according to a defined strategy.
+
+Instead of selecting every security yourself, the fund follows its investment mandate and is generally managed by an asset management company.
+
+Important things to understand include:
+
+• Investment objective
+• Risk level
+• Fees
+• Portfolio holdings
+• Historical performance
+
+Past performance does not guarantee future returns.`;
+
+  }
+
+
+  /* ETF */
+  if(q.includes("etf")){
+
+    return `An ETF, or Exchange-Traded Fund, is a fund whose units trade on a stock exchange.
+
+Many ETFs are designed to track an index.
+
+For example, an index ETF attempts to provide returns that broadly follow its underlying index, before costs and tracking differences.
+
+ETFs can provide diversification, but the risk depends on what the ETF owns.`;
+
+  }
+
+
+  /* YIELD */
+  if(
+    q.includes("ytm") ||
+    q.includes("yield to maturity")
+  ){
+
+    return `Yield to Maturity, or YTM, is the approximate annualised return an investor would earn if a bond were bought at its current market price and held until maturity, assuming the scheduled payments are made and coupons are reinvested at the implied rate.
+
+The key relationship is:
+
+Bond price ↑ → YTM ↓
+
+Bond price ↓ → YTM ↑
+
+So bond prices and yields generally move in opposite directions.`;
+
+  }
+
+
+  /* INTEREST RATES */
+  if(
+    q.includes("interest rate") ||
+    q.includes("repo rate")
+  ){
+
+    return `Interest rates affect borrowing, saving and investing.
+
+When borrowing rates rise:
+
+• Loans can become more expensive.
+• Businesses may reduce borrowing.
+• Consumers may spend less.
+
+When rates fall, the opposite can happen.
+
+For investors, interest-rate changes can also affect bond prices, equity valuations and the attractiveness of different investments.`;
+
+  }
+
+
+  /* TAX */
+  if(
+    q.includes("tax") ||
+    q.includes("income tax")
+  ){
+
+    return `Tax is a compulsory payment to the government based on rules defined by the relevant tax system.
+
+When thinking about investments, don't look only at the headline return.
+
+A better question is:
+
+"What is my return after taxes, fees and inflation?"
+
+Those factors can materially affect the amount of wealth you actually build.`;
+
+  }
+
+
+  /* CREDIT CARD */
+  if(
+    q.includes("credit card") ||
+    q.includes("credit card debt")
+  ){
+
+    return `A credit card is a payment facility that can allow you to spend first and repay later.
+
+The important distinction is between:
+
+Paying the full statement balance → generally avoids revolving interest on purchases, subject to the card's terms.
+
+Carrying a balance → can lead to significant interest charges.
+
+Credit cards can be useful for convenience and cash-flow management, but high-cost revolving debt can quickly become expensive.`;
+
+  }
+
+
+  /* NET WORTH */
+  if(
+    q.includes("net worth") ||
+    q.includes("wealth")
+  ){
+
+    return `Net worth is a simple measure of financial position.
+
+The formula is:
+
+Net Worth = Assets − Liabilities
+
+Example:
+
+Assets = ₹10 lakh
+Liabilities = ₹3 lakh
+
+Net worth = ₹7 lakh
+
+Tracking net worth over time can help you see whether your overall financial position is improving.`;
+
+  }
+
+
+  /* ROI */
+  if(
+    q.includes("roi") ||
+    q.includes("return on investment")
+  ){
+
+    return `ROI means Return on Investment.
+
+A simple formula is:
+
+ROI = (Gain from investment − Cost of investment) ÷ Cost of investment × 100
+
+Example:
+
+You invest ₹10,000 and later receive ₹12,000.
+
+Gain = ₹2,000
+
+ROI = ₹2,000 ÷ ₹10,000 × 100 = 20%
+
+For real-world investing, remember that taxes, fees, timing and risk also matter.`;
+
+  }
+
+
+  /* DEFAULT */
+  return `That's a good finance question.
+
+Here's how I'd think about it:
+
+1. Define the financial concept clearly.
+2. Understand the numbers behind it.
+3. Look at the risk and trade-offs.
+4. Consider your time horizon.
+5. Avoid making a decision based on one number alone.
+
+If you want, try asking me something more specific, for example:
+
+• "What is compound interest?"
+• "How should I make a budget?"
+• "What is inflation?"
+• "What is SIP?"
+• "What is diversification?"
+
+I'll break it down simply.`;
+
+}
+
+
+function clearChat(){
+
+  localStorage.removeItem("finovaConversation");
+
+  const chatBox=document.getElementById("chatBox");
+
+  chatBox.innerHTML="";
+
+  addMessage(defaultWelcome,"ai",false);
+
+}
+
+
+/* ================= CLOSE MOBILE MENU WHEN CLICKING OUTSIDE ================= */
+document.addEventListener("click",function(e){
+
+  const nav=document.getElementById("navLinks");
+  const menu=document.querySelector(".menu-btn");
+
+  if(
+    nav &&
+    nav.classList.contains("open") &&
+    !nav.contains(e.target) &&
+    !menu.contains(e.target)
+  ){
+    nav.classList.remove("open");
+  }
+
+});
+</script>
+
+</body>
+</html>
+```
